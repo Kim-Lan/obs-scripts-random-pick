@@ -27,7 +27,7 @@ countdown_start = 0
 countdown = 0
 
 def script_description():
-    return ""
+    return "randomly pick from a list of items"
 
 def script_load(settings):
     sh = obs.obs_get_signal_handler()
@@ -148,7 +148,7 @@ def set_text(text: str):
 
 def script_defaults(settings):
     obs.obs_data_set_default_int(settings, SPEED_NAME, 7)
-    obs.obs_data_set_default_string(settings, INITIAL_TEXT_NAME, "random plushie!")
+    obs.obs_data_set_default_string(settings, INITIAL_TEXT_NAME, "")
     obs.obs_data_set_default_int(settings, COUNTDOWN_NAME, 3)
     obs.obs_data_set_default_int(settings, DURATION_NAME, 10)
     obs.obs_data_set_default_int(settings, HOLD_NAME, 10)
