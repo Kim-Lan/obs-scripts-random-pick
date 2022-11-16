@@ -51,16 +51,18 @@ def script_update(settings):
     interval = 180 - (speed_factor - 1) * 15
     duration = obs.obs_data_get_int(settings, DURATION_NAME) * 1000
     hold_duration = obs.obs_data_get_int(settings, HOLD_NAME) * 1000
+
     update_list()
 
 def update_list():
     global last_modified
 
-    if file_path == "":
+    if not os.path.exists(file_path):
         return
 
     last_modified = time.ctime(os.path.getmtime(file_path))
     text_file = open(file_path)
+
     item_list.clear()
     for line in text_file.readlines():
         line = str.strip(line)
@@ -106,6 +108,7 @@ def source_deactivated(calldata):
         set_text("")
         obs.timer_remove(counting_down)
         obs.timer_remove(select_from_list)
+        obs.timer_remove(disable_source)
         reset()
 
 def disable_source():
@@ -123,6 +126,10 @@ def reset():
     current = 0
 
 def select_from_list():
+    if len(item_list) == 0:
+        set_text("")
+        return
+
     global index
     global current
 
